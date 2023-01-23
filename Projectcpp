@@ -1,0 +1,170 @@
+#include <iostream>
+
+#include <fstream>
+
+using namespace std;
+
+int main() {
+
+    string name;
+
+    int phoneNumber;
+
+    string email;
+
+    string address;
+
+    int choice;
+
+    string searchName;
+
+    while (true) {
+
+        cout << "\t\t*************************" <<endl;
+
+        cout << "\t\tPhone Book Record Keeping" << endl;
+
+        cout << "\t\t1. Add new contact" << endl;
+
+        cout << "\t\t2. Search for a contact" << endl;
+
+        cout << "\t\t3. Exit" << endl;
+
+        cout << "\t\tEnter your choice: ";
+
+        cin >> choice;
+
+        cout << "\t\t*************************" <<endl;
+
+        if (choice == 1) {
+
+    
+
+    cout << "\t\tEnter contact name: ";
+
+    cin >> name;
+
+    
+
+    ifstream file("data.txt");
+
+    string line;
+
+    bool nameExists = false;
+
+    
+
+    while (file >> line) {
+
+     
+
+        if (name == line) {
+
+            nameExists = true;
+
+            break;
+
+        }
+
+    }
+
+    file.close();
+
+    if(nameExists){
+
+        cout<<"\t\tName already exist, please choose different name"<<endl;
+
+    }
+
+    else{
+
+        cout << "\t\tEnter phone number: ";
+
+        cin >> phoneNumber;
+
+        cout << "\t\tEnter email address: ";
+
+        cin >> email;
+
+        cout << "\t\tEnter address: ";
+
+        cin >> address;
+
+        
+
+        ofstream file("data.txt",ios::app);
+
+        
+
+        file << name << " " << phoneNumber << " " << email << " " << address << endl;
+
+        cout<<"\t\tNew contact has been Saved"<<endl;
+
+        
+
+        file.close();
+
+    }
+
+}
+
+        else if (choice == 2) {
+
+            
+
+            cout << "\t\tEnter name to search: ";
+
+            cin >> searchName;
+
+            
+
+            ifstream file("data.txt");
+
+            bool found = false;
+
+            string line;
+
+            
+
+            while (file >> name >> phoneNumber >> email >> address) {
+
+               
+
+                if (searchName == name) {
+
+                    found = true;
+
+                    cout << "\t\tName: " << name << endl;
+
+                    cout << "\t\tPhone number: " << phoneNumber << endl;
+
+                    cout << "\t\tEmail address: " << email << endl;
+
+                    cout << "\t\tAddress: " << address << endl;
+
+                    break;
+
+                }
+
+            }
+
+            if (!found) {
+
+                cout << "\t\tContact not found!" << endl;
+
+            }
+
+            file.close();
+
+        } else if (choice == 3) {
+
+            break;
+
+        }
+
+    }
+
+    return 0;
+
+}
+
